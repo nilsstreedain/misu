@@ -1,0 +1,47 @@
+#!/bin/sh
+
+#	misu
+#
+#	macOS Iconset Utility
+#
+#	Script for generating iconsets for macOS applications
+#	compatible with various image formats.
+#
+#	Valid formats:
+#		- jpeg	- tiff	- png	- gif	- jp2	- pict
+#		- bmp	- qtif	- psd	- sgi	- tga
+#
+# 	Created by Nils Streedain on 3/16/22.
+#  
+
+
+# Print error if first arg is not a filepath
+if [ -f $1 ]
+	then
+		PNG_FILEPATH=$1
+	else
+		echo "Verify first argument is a valid filepath.\nUsage: misu image-filepath [output-directory-path]"
+		exit 1
+fi
+
+# If no icns filepath is provided use default (dir of png)
+INCS_FILEPATH=${2:-$(dirname $PNG_FILEPATH)/AppIcon.icns}
+
+# Create iconset directory
+mkdir AppIcon.iconset
+
+# Populate iconset with various resolutions
+sips -z 16 16		-s format png $PNG_FILEPATH --out AppIcon.iconset/icon_16x16.png
+sips -z 32 32		-s format png $PNG_FILEPATH --out AppIcon.iconset/icon_16x16@2x.png
+sips -z 32 32		-s format png $PNG_FILEPATH --out AppIcon.iconset/icon_32x32.png
+sips -z 64 64		-s format png $PNG_FILEPATH --out AppIcon.iconset/icon_32x32@2x.png
+sips -z 128 128		-s format png $PNG_FILEPATH --out AppIcon.iconset/icon_128x128.png
+sips -z 256 256		-s format png $PNG_FILEPATH --out AppIcon.iconset/icon_128x128@2x.png
+sips -z 256 256		-s format png $PNG_FILEPATH --out AppIcon.iconset/icon_256x256.png
+sips -z 512 512		-s format png $PNG_FILEPATH --out AppIcon.iconset/icon_256x256@2x.png
+sips -z 512 512		-s format png $PNG_FILEPATH --out AppIcon.iconset/icon_512x512.png
+sips -z 1024 1024	-s format png $PNG_FILEPATH --out AppIcon.iconset/icon_512x512@2x.png
+
+# Convert iconset to icns & delete
+iconutil --convert icns --output $INCS_FILEPATH AppIcon.iconset
+rm -R AppIcon.iconset
