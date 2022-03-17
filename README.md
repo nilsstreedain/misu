@@ -1,3 +1,5 @@
+![Misu](https://user-images.githubusercontent.com/25465133/158748135-1cf52728-42b5-4b6c-ae90-f40904be0568.png)
+
 # misu - macOS Iconset Utility
 Script for generating iconsets for macOS applications compatible with various image formats.
 
