@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh +x
 
 #	misu
 #
@@ -12,17 +12,25 @@
 #		- bmp	- qtif	- psd	- sgi	- tga
 #
 # 	Created by Nils Streedain on 3/16/22.
-#  
 
+# Error function prints first argument (error message) and then usage
+USAGE="Usage: misu image-filepath [output-directory-path]"
+error () {
+	echo "$1\n$USAGE"
+	exit 1
+}
 
-# Print error if first arg is not a filepath
-if [ -f $1 ]
-	then
-		PNG_FILEPATH=$1
-	else
-		echo "Verify first argument is a valid filepath.\nUsage: misu image-filepath [output-directory-path]"
-		exit 1
+# Print error if no args are provided
+if [ $# -eq 0 ]; then
+	error "No arguments provided."
 fi
+
+# Print error if first arg is an invalid filepath
+if ! [ -f $1 ]; then
+	error "Invalid image filepath."
+fi
+
+PNG_FILEPATH=$1
 
 # If no icns filepath is provided use default (dir of png)
 INCS_FILEPATH=${2:-$(dirname $PNG_FILEPATH)/AppIcon.icns}
