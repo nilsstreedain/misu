@@ -11,9 +11,12 @@ This script is capable of taking an image (of various formats and resolutions) a
 -|-|-|-|-|-|-|-|-|-|-|-
 
 ## Installation:
-(Install script coming soon)
+Paste the command below in terminal and enter your password to install misu
+```
+curl -sSL misu.nilsstreedain.com | bash
+```
 
-For now, the script can be downloaded and placed in the `/usr/local/bin/` directory.
+Alternatively, the `misu` script may be downloaded and placed in the `/usr/local/bin/` directory.
 
 ## Usage:
 ```
